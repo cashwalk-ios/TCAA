@@ -11,7 +11,9 @@ import SwiftUI
 struct TCAAApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack {
+                ProfileListView()
+            }
         }
     }
 }

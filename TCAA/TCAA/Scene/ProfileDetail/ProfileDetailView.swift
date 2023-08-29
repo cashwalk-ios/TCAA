@@ -13,7 +13,7 @@ struct ProfileDetailView: View {
 
     var body: some View {
         GeometryReader { proxy in
-            AsyncImage(url: profile.picture) { image in
+            CacheAsyncImage(url: profile.picture) { image in
                 image.image?.resizable()
             }
             .scaledToFit()

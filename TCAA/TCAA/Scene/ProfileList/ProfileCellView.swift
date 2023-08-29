@@ -13,7 +13,7 @@ struct ProfileCellView: View {
     
     var body: some View {
         HStack {
-            AsyncImage(url: profile.picture) { image in
+            CacheAsyncImage(url: profile.picture) { image in
                 image.image?.resizable()
             }
             .scaledToFill()

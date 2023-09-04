@@ -14,6 +14,10 @@ struct ProfileListView: View {
     
     var body: some View {
         VStack {
+            Text("랜덤프로필")
+                .font(.headline)
+                .padding(.top, 3)
+            
             Picker("Choose a Side", selection: $tabSelection) {
                 Text("Man").tag(0)
                 Text("Woman").tag(1)

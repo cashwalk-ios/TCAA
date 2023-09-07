@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 @main
 struct TCAAApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ProfileView(store: Store(initialState: ProfileFeature.State()) {
+                ProfileFeature()
+            })
         }
     }
 }

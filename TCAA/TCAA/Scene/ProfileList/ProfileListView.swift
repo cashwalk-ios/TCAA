@@ -13,15 +13,13 @@ struct ProfileListView: View {
     
     let store: StoreOf<ProfileListFeature>
     
-    @State private var tabSelection = 0
-    
     var body: some View {
         NavigationStackStore(self.store.scope(state: \.path, action: { .path($0) })) {
             WithViewStore(self.store, observe: { $0 }) { viewStore in
                 VStack {
-                    Picker("Choose a Side", selection: $tabSelection) {
-                        Text("Man").tag(0)
-                        Text("Woman").tag(1)
+                    Picker("Choose a Side", selection: viewStore.$tabSelection) {
+                        Text("Man").tag(SegmentPage.male) // enum값으로
+                        Text("Woman").tag(SegmentPage.female)
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     .padding()
@@ -34,13 +32,13 @@ struct ProfileListView: View {
                     }
                     .padding(.horizontal)
                     GeometryReader { proxy in
-                        TabView(selection: $tabSelection) {
-                            CollectionView(store: store, segmentPage: .male)
+                        TabView(selection: viewStore.$tabSelection) {
+                            CollectionView(viewStore: viewStore, segmentPage: .male)
                                 .frame(width: proxy.size.width)
-                                .tag(0)
-                            CollectionView(store: store, segmentPage: .female)
+                                .tag(SegmentPage.male)
+                            CollectionView(viewStore: viewStore, segmentPage: .female)
                                 .frame(width: proxy.size.width)
-                                .tag(1)
+                                .tag(SegmentPage.female)
                         }
                         .onAppear { UIScrollView.appearance().isPagingEnabled = true }
                         .tabViewStyle(.page(indexDisplayMode: .never))
@@ -61,46 +59,44 @@ struct ProfileListView: View {
 
 struct CollectionView: View {
     
-    let store: StoreOf<ProfileListFeature>
+    let viewStore: ViewStore<ProfileListFeature.State, ProfileListFeature.Action>
     @State var segmentPage: SegmentPage
     
     let columns = [GridItem(.flexible())]
     let columns1 = [GridItem(spacing: 1), GridItem(.flexible())]
     
     var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
-            ScrollView {
-                LazyVGrid(columns: viewStore.showOptionSelection == .wideCell ? columns: columns1, spacing: 1) {
-                    ForEach(segmentPage == .male ? viewStore.maleList : viewStore.femaleList, id: \.id) { value in
-                        NavigationLink(state: ProfileDetailFeature.State(profile: value), label: {
-                            if viewStore.showOptionSelection == .wideCell {
-                                ProfileCellView(profile: value)
-                            } else {
-                                HalfProfileCellView(profile: value)
-                            }
-                        })
-                        .tint(Color(uiColor: .label))
-                        .contextMenu {
-                            Button(role: .destructive) {
-                                viewStore.send(.deleteDataCell(value))
-                            } label: {
-                                Label("Delete", systemImage: "trash")
-                            }
+        ScrollView {
+            LazyVGrid(columns: viewStore.showOptionSelection == .wideCell ? columns: columns1, spacing: 1) {
+                ForEach(segmentPage == .male ? viewStore.maleList : viewStore.femaleList, id: \.id) { value in
+                    NavigationLink(state: ProfileDetailFeature.State(profile: value), label: {
+                        if viewStore.showOptionSelection == .wideCell {
+                            ProfileCellView(profile: value)
+                        } else {
+                            HalfProfileCellView(profile: value)
                         }
-                        .onAppear {
-                            viewStore.send(
-                                segmentPage == .male ? .onMaleDataCellAppear(value): .onFemaleDataCellAppear(value)
-                            )
+                    })
+                    .tint(Color(uiColor: .label))
+                    .contextMenu {
+                        Button(role: .destructive) {
+                            viewStore.send(.deleteDataCell(value))
+                        } label: {
+                            Label("Delete", systemImage: "trash")
                         }
                     }
+                    .onAppear {
+                        viewStore.send(
+                            segmentPage == .male ? .onMaleDataCellAppear(value): .onFemaleDataCellAppear(value)
+                        )
+                    }
                 }
-                .padding(.horizontal)
             }
-            .refreshable {
-                viewStore.send(
-                    segmentPage == .male ? .refreshMaleList: .refreshFemaleList
-                )
-            }
+            .padding(.horizontal)
+        }
+        .refreshable {
+            viewStore.send(
+                segmentPage == .male ? .refreshMaleList: .refreshFemaleList
+            )
         }
     }
 }

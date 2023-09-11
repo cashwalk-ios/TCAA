@@ -33,7 +33,7 @@ struct Name: Decodable {
 
 // MARK: - Picture
 struct Picture: Decodable {
-    let medium: String
+    let large: String
 }
 
 
@@ -44,7 +44,7 @@ extension RandomUserResponse {
                 gender: $0.gender == "male" ? .male : .female,
                 name: "\($0.name.first) \($0.name.last)",
                 email: $0.email,
-                picture: URL(string: $0.picture.medium)!,
+                picture: URL(string: $0.picture.large)!,
                 location: $0.location.country
             )
         }

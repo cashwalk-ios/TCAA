@@ -13,9 +13,10 @@ import Moya
 
 struct ProfileListFeature: Reducer {
     
-    private let provider = MoyaProvider<RandomUserAPI>()
+    @Dependency(\.randomUser) var randomUser
     
     struct State: Equatable {
+        @BindingState var tabSelection: SegmentPage = .male
         var maleList = [ProfileModel]()
         var femaleList = [ProfileModel]()
         var maleListNextPage = 0
@@ -28,7 +29,9 @@ struct ProfileListFeature: Reducer {
         var path = StackState<ProfileDetailFeature.State>()
     }
     
-    enum Action: Equatable {
+    enum Action: BindableAction, Equatable {
+        case binding(BindingAction<State>)
+        
         case viewDidLoad
         case selectShowOption(ShowOption)
         case onMaleDataCellAppear(ProfileModel)
@@ -38,32 +41,24 @@ struct ProfileListFeature: Reducer {
         case refreshFemaleList
         case path(StackAction<ProfileDetailFeature.State, ProfileDetailFeature.Action>)
         
-        case maleResponse([ProfileModel])
-        case femaleResponse([ProfileModel])
-        case moreMaleResponse([ProfileModel])
-        case moreFemaleResponse([ProfileModel])
+        case maleListResponse(TaskResult<[ProfileModel]>)
+        case femaleListResponse(TaskResult<[ProfileModel]>)
+        
+        case requestMaleUser(Int)
+        case requestFemaleUser(Int)
     }
     
     var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
             case .viewDidLoad:
                 return .run { send in
-                    let maleList = try? await self.fetchMaleProfileList(page: 0)
-                    let femaleList = try? await self.fetchFemaleProfileList(page: 0)
-                    await send(.maleResponse(maleList ?? []))
-                    await send(.femaleResponse(femaleList ?? []))
+                    await send(.requestMaleUser(0))
+                    await send(.requestFemaleUser(0))
                 }
             case .selectShowOption(let showOption):
                 state.showOptionSelection = showOption
-                return .none
-            case .maleResponse(let maleList):
-                state.maleList = maleList
-                state.maleListNextPage += 1
-                return .none
-            case .femaleResponse(let femaleList):
-                state.femaleList = femaleList
-                state.femaleListNextPage += 1
                 return .none
             case .path:
                 return .none
@@ -77,14 +72,13 @@ struct ProfileListFeature: Reducer {
                     }
                     let nextPage = state.maleListNextPage
                     return .run { send in
-                        let maleList = try? await self.fetchMaleProfileList(page: nextPage)
-                        await send(.moreMaleResponse(maleList ?? []))
+                        await send(.requestMaleUser(nextPage))
                     }
                 } else {
                     return .none
                 }
             case .onFemaleDataCellAppear(let data):
-                if data.id.uuidString == state.femaleList.last?.id.uuidString {
+                if data == state.femaleList.last {
                     // 마지막 셀이 onAppear 되었을때 - 여자 데이터 더 불러오기
                     if let maxPage = state.femaleListPageMax,
                        state.femaleListNextPage > maxPage {
@@ -93,28 +87,11 @@ struct ProfileListFeature: Reducer {
                     }
                     let nextPage = state.femaleListNextPage
                     return .run { send in
-                        let femaleList = try? await self.fetchFemaleProfileList(page: nextPage)
-                        await send(.moreFemaleResponse(femaleList ?? []))
+                        await send(.requestFemaleUser(nextPage))
                     }
                 } else {
                     return .none
                 }
-            case .moreMaleResponse(let moreMaleList):
-                state.maleList += moreMaleList
-                state.maleListNextPage += 1
-                if moreMaleList.count < 14 {
-                    // 로드된 페이지의 데이터가 지정한 개수(14)개 이하일 시 최대 페이지 설정
-                    state.maleListPageMax = state.maleListNextPage
-                }
-                return .none
-            case .moreFemaleResponse(let moreFemaleList):
-                state.femaleList += moreFemaleList
-                state.femaleListNextPage += 1
-                if moreFemaleList.count < 14 {
-                    // 로드된 페이지의 데이터가 지정한 개수(14)개 이하일 시 최대 페이지 설정
-                    state.femaleListPageMax = state.femaleListNextPage
-                }
-                return .none
             case .deleteDataCell(let data):
                 state.maleList.removeAll(where: { $0 == data })
                 state.femaleList.removeAll(where: { $0 == data })
@@ -122,35 +99,60 @@ struct ProfileListFeature: Reducer {
             case .refreshMaleList:
                 state.maleListNextPage = 0
                 return .run { send in
-                    let maleList = try? await self.fetchMaleProfileList(page: 0)
-                    await send(.maleResponse(maleList ?? []))
+                    await send(.requestMaleUser(0))
                 }
             case .refreshFemaleList:
                 state.femaleListNextPage = 0
                 return .run { send in
-                    let femaleList = try? await self.fetchFemaleProfileList(page: 0)
-                    await send(.femaleResponse(femaleList ?? []))
+                    await send(.requestFemaleUser(0))
                 }
+            case .requestMaleUser(let page):
+                return .run { send in
+                    await send(.maleListResponse( TaskResult{
+                        try await self.randomUser.fetchMaleList(page)
+                    }))
+                }
+            case .requestFemaleUser(let page):
+                return .run { send in
+                    await send(.femaleListResponse( TaskResult{
+                        try await self.randomUser.fetchFemaleList(page)
+                    }))
+                }
+            case .maleListResponse(.success(let data)):
+                if state.maleListNextPage == 0 {
+                    state.maleList = data
+                } else {
+                    state.maleList += data
+                    if data.count < randomUser.responseListCount {
+                        // 로드된 페이지의 데이터가 지정한 개수 이하일 시 최대 페이지 설정
+                        state.maleListPageMax = state.maleListNextPage
+                    }
+                }
+                state.maleListNextPage += 1
+                return .none
+            case .femaleListResponse(.success(let data)):
+                if state.femaleListNextPage == 0 {
+                    state.femaleList = data
+                } else {
+                    state.femaleList += data
+                    if data.count < randomUser.responseListCount {
+                        // 로드된 페이지의 데이터가 지정한 개수 이하일 시 최대 페이지 설정
+                        state.femaleListPageMax = state.femaleListNextPage
+                    }
+                }
+                state.femaleListNextPage += 1
+                return .none
+            case .maleListResponse(.failure(_)):
+                return .none // 에러처리
+            case .femaleListResponse(.failure(_)):
+                return .none // 에러처리
+            case .binding(_):
+                return .none
             }
+            
         }
         .forEach(\.path, action: /Action.path) {
-            ProfileDetailFeature()
+            return ProfileDetailFeature()
         }
     }
-}
-
-extension ProfileListFeature {
-
-    private func fetchMaleProfileList(page: Int) async throws -> [ProfileModel] {
-        let response: RandomUserResponse = try await self.provider.async.request(.getMaleList(page: page))
-        print("fetchMaleProfileList(\(page))", response.results.count)
-        return response.asModel()
-    }
-    
-    private func fetchFemaleProfileList(page: Int) async throws -> [ProfileModel] {
-        let response: RandomUserResponse = try await self.provider.async.request(.getFemaleList(page: page))
-        print("fetchFemaleProfileList(\(page))", response.results.count)
-        return response.asModel()
-    }
-
 }

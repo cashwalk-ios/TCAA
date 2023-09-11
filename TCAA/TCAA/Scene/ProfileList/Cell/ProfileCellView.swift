@@ -16,14 +16,18 @@ struct ProfileCellView: View {
             CacheAsyncImage(url: profile.picture) { image in
                 image.image?.resizable()
             }
+            .background(.gray)
             .scaledToFill()
             .frame(width: 70, height: 70)
             .clipped()
             VStack(alignment: .leading) {
                 Text(profile.name)
+                    .lineLimit(0)
                     .font(.system(size: 20, weight: .bold))
                 Text(profile.location)
+                    .lineLimit(0)
                 Text(profile.email)
+                    .lineLimit(0)
             }
             Spacer()
         }
@@ -34,7 +38,7 @@ struct ProfileCellView: View {
 struct ProfileCellView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileCellView(profile: ProfileModel(
-            gender: .man,
+            gender: .male,
             name: "qwer",
             email: "1",
             picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),

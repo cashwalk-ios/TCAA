@@ -8,11 +8,11 @@
 import Foundation
 
 enum Gender {
-    case man
-    case woman
+    case male
+    case female
 }
 
 enum SegmentPage: Int {
-    case man = 0
-    case woman = 1
+    case male = 0
+    case female = 1
 }

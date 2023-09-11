@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProfileModel {
+struct ProfileModel: Equatable {
     let id: UUID = .init()
     let gender: Gender
     let name: String
@@ -19,206 +19,206 @@ struct ProfileModel {
 
 struct MockData {
     static var items = [ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     )].sorted(by: { $0.email < $1.email })
     static var items1 = [ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),
         location: "qwer"
     ), ProfileModel(
-        gender: .man,
+        gender: .male,
         name: "qwer",
         email: String(Int.random(in: 0...100)),
         picture: URL(string: "https://i.kym-cdn.com/entries/icons/facebook/000/045/763/tsfishcover.jpg"),

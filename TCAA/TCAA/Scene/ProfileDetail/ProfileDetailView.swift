@@ -7,19 +7,23 @@
 
 import SwiftUI
 
+import ComposableArchitecture
+
 struct ProfileDetailView: View {
     
-    var profile: ProfileModel
+    let store: StoreOf<ProfileDetailFeature>
 
     var body: some View {
-        GeometryReader { proxy in
-            CacheAsyncImage(url: profile.picture) { image in
-                image.image?.resizable()
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
+            GeometryReader { proxy in
+                CacheAsyncImage(url: viewStore.profile.picture) { image in
+                    image.image?.resizable()
+                }
+                .scaledToFit()
+                .modifier(ImageModifier(contentSize: CGSize(width: proxy.size.width, height: proxy.size.height)))
             }
-            .scaledToFit()
-            .modifier(ImageModifier(contentSize: CGSize(width: proxy.size.width, height: proxy.size.height)))
         }
-        .navigationTitle("Deatil")
+        .navigationTitle("Detail")
     }
 
 }

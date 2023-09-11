@@ -24,6 +24,9 @@
 		5B7250942AA55BB100F61815 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 5B7250932AA55BB100F61815 /* Moya */; };
 		5B7250962AA55BD500F61815 /* MoyaConcurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7250952AA55BD500F61815 /* MoyaConcurrency.swift */; };
 		5B7250982AA55C0200F61815 /* RandomUserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7250972AA55C0200F61815 /* RandomUserAPI.swift */; };
+		5B72509B2AA55CFA00F61815 /* ProfileListFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B72509A2AA55CFA00F61815 /* ProfileListFeature.swift */; };
+		5B72509D2AA5625E00F61815 /* ProfileDetailFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B72509C2AA5625E00F61815 /* ProfileDetailFeature.swift */; };
+		5B72509F2AA575F000F61815 /* ViewDidLoad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B72509E2AA575F000F61815 /* ViewDidLoad.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +46,9 @@
 		5B7250902AA55AFD00F61815 /* RandomUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUserResponse.swift; sourceTree = "<group>"; };
 		5B7250952AA55BD500F61815 /* MoyaConcurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaConcurrency.swift; sourceTree = "<group>"; };
 		5B7250972AA55C0200F61815 /* RandomUserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUserAPI.swift; sourceTree = "<group>"; };
+		5B72509A2AA55CFA00F61815 /* ProfileListFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListFeature.swift; sourceTree = "<group>"; };
+		5B72509C2AA5625E00F61815 /* ProfileDetailFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailFeature.swift; sourceTree = "<group>"; };
+		5B72509E2AA575F000F61815 /* ViewDidLoad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDidLoad.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,9 +124,9 @@
 		5B47A1982A9477670096831D /* ProfileList */ = {
 			isa = PBXGroup;
 			children = (
+				5B7250992AA55CBF00F61815 /* Cell */,
 				5B47A1832A9458720096831D /* ProfileListView.swift */,
-				5B47A1992A9477B30096831D /* ProfileCellView.swift */,
-				5B47A19B2A94911B0096831D /* HalfProfileCellView.swift */,
+				5B72509A2AA55CFA00F61815 /* ProfileListFeature.swift */,
 			);
 			path = ProfileList;
 			sourceTree = "<group>";
@@ -129,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				5B47A19F2A9598B60096831D /* ProfileDetailView.swift */,
+				5B72509C2AA5625E00F61815 /* ProfileDetailFeature.swift */,
 			);
 			path = ProfileDetail;
 			sourceTree = "<group>";
@@ -139,6 +146,7 @@
 				5B47A1A22A959E2F0096831D /* PinchToZoom.swift */,
 				5B540CCE2A9D7F5F00142948 /* CacheAsyncImage.swift */,
 				5B7250952AA55BD500F61815 /* MoyaConcurrency.swift */,
+				5B72509E2AA575F000F61815 /* ViewDidLoad.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -150,6 +158,15 @@
 				5B7250972AA55C0200F61815 /* RandomUserAPI.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		5B7250992AA55CBF00F61815 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				5B47A19B2A94911B0096831D /* HalfProfileCellView.swift */,
+				5B47A1992A9477B30096831D /* ProfileCellView.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,10 +255,13 @@
 				5B47A1A02A9598B60096831D /* ProfileDetailView.swift in Sources */,
 				5B47A1842A9458720096831D /* ProfileListView.swift in Sources */,
 				5B47A19E2A9591B30096831D /* ShowOption.swift in Sources */,
+				5B72509F2AA575F000F61815 /* ViewDidLoad.swift in Sources */,
 				5B47A1A32A959E2F0096831D /* PinchToZoom.swift in Sources */,
 				5B47A1942A94724F0096831D /* ProfileModel.swift in Sources */,
+				5B72509B2AA55CFA00F61815 /* ProfileListFeature.swift in Sources */,
 				5B7250962AA55BD500F61815 /* MoyaConcurrency.swift in Sources */,
 				5B47A1822A9458720096831D /* TCAAApp.swift in Sources */,
+				5B72509D2AA5625E00F61815 /* ProfileDetailFeature.swift in Sources */,
 				5B47A19C2A94911B0096831D /* HalfProfileCellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

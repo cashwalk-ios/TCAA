@@ -41,7 +41,7 @@ extension RandomUserResponse {
     func asModel() -> [ProfileModel] {
         return self.results.map {
             ProfileModel(
-                gender: $0.gender == "male" ? .man : .woman,
+                gender: $0.gender == "male" ? .male : .female,
                 name: "\($0.name.first) \($0.name.last)",
                 email: $0.email,
                 picture: URL(string: $0.picture.medium)!,

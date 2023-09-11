@@ -9,8 +9,8 @@ import Foundation
 import Moya
 
 enum RandomUserAPI {
-    case getMaleList
-    case getFemaleList
+    case getMaleList(page: Int)
+    case getFemaleList(page: Int)
 }
 
 extension RandomUserAPI: TargetType {
@@ -34,24 +34,25 @@ extension RandomUserAPI: TargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getMaleList:
+        case .getMaleList(let page):
             return .requestParameters(
                 parameters: [
                     "inc": "gender,name,email,picture,location",
-                    "results" : "15",
-                    "gender": "male"],
+                    "results" : "14",
+                    "gender": "male",
+                    "page": page],
                 encoding: URLEncoding.default
             )
-        case .getFemaleList:
+        case .getFemaleList(let page):
             return .requestParameters(
                 parameters: [
                     "inc": "gender,name,email,picture,location",
-                    "results" : "15",
-                    "gender":"female"],
+                    "results" : "14",
+                    "gender":"female",
+                    "page": page],
                 encoding: URLEncoding.default
             )
         }
-//        return .requestPlain
     }
     
     var headers: [String : String]? {

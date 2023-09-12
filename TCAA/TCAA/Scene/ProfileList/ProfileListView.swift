@@ -75,7 +75,9 @@ struct CollectionView: View {
                             .tint(Color(uiColor: .label))
                             .contextMenu {
                                 Button(role: .destructive) {
-                                    viewStore.send(.deleteDataCell(value))
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5)  {
+                                        viewStore.send(.deleteDataCell(value))
+                                    }
                                 } label: {
                                     Label("Delete", systemImage: "trash")
                                 }

@@ -7,11 +7,17 @@
 
 import SwiftUI
 
+import ComposableArchitecture
+
 @main
 struct TCAAApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack {
+                ProfileListView(store: Store(initialState: ProfileListFeature.State()) {
+                    ProfileListFeature()
+                })
+            }
         }
     }
 }
